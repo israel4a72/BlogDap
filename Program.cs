@@ -2,7 +2,7 @@
 using Blog.Repositories;
 using Microsoft.Data.SqlClient;
 
-const string connectionString = "Server=SERVICELOGIC;Database=Blog;User Id=sa;Password=saDefault;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true";
+const string connectionString = @"Server=localhost;Database=Blog;User Id=sa;Password=saDefault;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true";
 
 using var connection = new SqlConnection(connectionString);
 ReadUsers(connection);
