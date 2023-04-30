@@ -1,29 +1,43 @@
 ﻿using Blog.Models;
-using Blog.Repositories;
+using BlogDap;
+using BlogDap.Screens.GenericScreens;
 using Microsoft.Data.SqlClient;
 
-const string connectionString = @"Server=localhost;Database=Blog;User Id=sa;Password=saDefault;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true";
+const string connectionString = @"Server=localhost,1433;Database=Blog;User ID=sa;Password=1q2w3e4r@#$;Trusted_Connection=False;TrustServerCertificate=True;";
 
 using var connection = new SqlConnection(connectionString);
-ReadUsers(connection);
-ReadRoles(connection);
+connection.Open();
+Database.Connection = connection;
+Load();
+connection.Close();
 
-
-static void ReadUsers(SqlConnection connection)
+static void Load()
 {
-    var repository = new GenericRepository<User>(connection);
-    var users = repository.GetAllAsync();
+    //Console.Clear();
+    Console.WriteLine("Select the entity to manage:");
+    string entity = Console.ReadLine() ?? string.Empty;
 
-    foreach (var user in users.Result)
-        Console.WriteLine($"{user.Id} - {user.Name}");
-
-
-}
-static void ReadRoles(SqlConnection connection)
-{
-    var repository = new GenericRepository<Role>(connection);
-    var roles = repository.GetAllAsync();
-
-    foreach (var role in roles.Result)
-        Console.WriteLine($"{role.Id} - {role.Name}");
+    switch (entity.ToLower())
+    {
+        case "category":
+            MenuScreen<Category>.Load();
+            break;
+        case "post":
+            MenuScreen<Post>.Load();
+            break;
+        case "tag":
+            MenuScreen<Tag>.Load();
+            break;
+        case "user":
+            MenuScreen<User>.Load();
+            break;
+        case "role":
+            MenuScreen<Role>.Load();
+            break;
+        default:
+            Console.WriteLine("Invalid entity");
+            Console.ReadKey();
+            Load();
+            break;
+    }
 }

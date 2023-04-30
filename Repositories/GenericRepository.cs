@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Dapper.Contrib.Extensions;
 using Microsoft.Data.SqlClient;
 
@@ -14,35 +10,35 @@ namespace Blog.Repositories
         {
             _connection = connection;
         }
-        public async Task<int> AddAsync(T entity)
+        public long Add(T entity)
         {
-            return await _connection.InsertAsync<T>(entity);
+            return _connection.Insert<T>(entity);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public IEnumerable<T> GetAll()
         {
-            return await _connection.GetAllAsync<T>();
+            return _connection.GetAll<T>();
         }
 
-        public async Task<T> GetAsync(int id)
+        public T Get(int id)
         {
-            return await _connection.GetAsync<T>(id);
+            return _connection.Get<T>(id);
         }
 
-        public async void RemoveAsync(T entity)
+        public void Remove(T entity)
         {
-            await _connection.DeleteAsync<T>(entity);
+            _connection.Delete<T>(entity);
         }
 
-        public async void RemoveAsync(int id)
+        public void Remove(int id)
         {
-            var entity = await _connection.GetAsync<T>(id);
-            await _connection.DeleteAsync<T>(entity);
+            var entity = _connection.Get<T>(id);
+            _connection.Delete<T>(entity);
         }
 
-        public async void UpdateAsync(T entity)
+        public void Update(T entity)
         {
-            await _connection.UpdateAsync<T>(entity);
+            _connection.Update<T>(entity);
         }
     }
 }

@@ -9,11 +9,11 @@ namespace Blog.Repositories
 {
     public interface IRepository<T> where T : class
     {
-        Task<IEnumerable<T>> GetAllAsync();
-        Task<T> GetAsync(int id);
-        Task<int> AddAsync(T entity);
-        void UpdateAsync(T entity);
-        void RemoveAsync(T entity);
-        void RemoveAsync(int id);
+        IEnumerable<T> GetAll();
+        T Get(int id);
+        long Add(T entity);
+        void Update(T entity);
+        void Remove(T entity);
+        void Remove(int id);
     }
 }
