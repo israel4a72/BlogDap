@@ -1,15 +1,10 @@
 ﻿using Blog.Models;
 using BlogDap;
 using BlogDap.Screens.GenericScreens;
-using Microsoft.Data.SqlClient;
 
-const string connectionString = @"Server=localhost,1433;Database=Blog;User ID=sa;Password=1q2w3e4r@#$;Trusted_Connection=False;TrustServerCertificate=True;";
-
-using var connection = new SqlConnection(connectionString);
-connection.Open();
-Database.Connection = connection;
+Database.Connection.Open();
 Load();
-connection.Close();
+Database.Connection.Close();
 
 static void Load()
 {

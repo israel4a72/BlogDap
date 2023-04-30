@@ -1,6 +1,3 @@
-// Write for me a class of category
-
-
 namespace Blog.Models
 {
     public class Category
