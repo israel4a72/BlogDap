@@ -44,7 +44,19 @@ namespace BlogDap.Data.Mapping
 
             builder.HasMany(x => x.Tags)
                 .WithMany(x => x.Posts)
-                .UsingEntity(Disctionary<string, string>);
+                .UsingEntity<Dictionary<string, object>>(
+                    "PostTag",
+                    post => post.HasOne<Tag>()
+                                .WithMany()
+                                .HasForeignKey("TagId")
+                                .HasConstraintName($"FK_{nameof(Post) + nameof(Tag)}_{nameof(Post)}Id")
+                                .OnDelete(DeleteBehavior.Cascade),
+                    tag => tag.HasOne<Post>()
+                            .WithMany()
+                            .HasForeignKey("PostId")
+                            .HasConstraintName($"FK_{nameof(Post) + nameof(Tag)}_{nameof(Tag)}Id")
+                            .OnDelete(DeleteBehavior.Cascade)
+                );
 
             builder.HasIndex(x => x.Slug, $"IX_{nameof(Post)}_{nameof(Post.Slug)}")
                     .IsUnique();

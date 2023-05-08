@@ -27,6 +27,23 @@ namespace BlogDap.Data.Mapping
                     .HasColumnType("VARCHAR")
                     .HasMaxLength(80);
 
+            builder.HasMany(x => x.Roles)
+                            .WithMany(x => x.Users)
+                            .UsingEntity<Dictionary<string, object>>(
+                                "UserRole",
+                                user => user.HasOne<Role>()
+                                            .WithMany()
+                                            .HasForeignKey("RoleId")
+                                            .HasConstraintName($"FK_{nameof(User) + nameof(Role)}_{nameof(User)}Id")
+                                            .OnDelete(DeleteBehavior.Cascade),
+                                role => role.HasOne<User>()
+                                        .WithMany()
+                                        .HasForeignKey("UserId")
+                                        .HasConstraintName($"FK_{nameof(User) + nameof(Role)}_{nameof(Role)}Id")
+                                        .OnDelete(DeleteBehavior.Cascade)
+                            );
+
+
             builder.HasIndex(x => x.Slug, $"IX_{nameof(User)}_{nameof(User.Slug)}")
                     .IsUnique();
         }

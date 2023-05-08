@@ -9,6 +9,8 @@ public class User
     public string Image { get; private set; } = string.Empty;
     public string Slug { get; private set; } = string.Empty;
     public string Bio { get; private set; } = string.Empty;
+    public string Teste { get; set; } = string.Empty;
 
-    public ICollection<Post> Posts { get; set; } = null!;
+    public ICollection<Post> Posts { get; private set; } = null!;
+    public ICollection<Role> Roles { get; private set; } = null!;
 }
