@@ -1,17 +1,23 @@
+using System.Diagnostics;
+
 namespace BlogEF.Models
 {
     public class Post
     {
-        public int Id { get; set; }
+        public int Id { get; private set; }
 
-        public int CategoryId { get; set; }
-        public int AuthorId { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string Summary { get; set; } = string.Empty;
-        public string Body { get; set; } = string.Empty;
-        public string Slug { get; set; } = string.Empty;
-        public string Image { get; set; } = string.Empty;
-        public DateTime CreateDate { get; set; }
-        public DateTime LastUpdateDate { get; set; }
+        public int CategoryId { get; private set; }
+        public int AuthorId { get; private set; }
+        public string Title { get; private set; } = string.Empty;
+        public string Summary { get; private set; } = string.Empty;
+        public string Body { get; private set; } = string.Empty;
+        public string Slug { get; private set; } = string.Empty;
+        public string Image { get; private set; } = string.Empty;
+        public DateTime CreateDate { get; private set; }
+        public DateTime LastUpdateDate { get; private set; }
+
+        public User Author { get; set; } = null!;
+        public Category Category { get; set; } = null!;
+        public IEnumerable<Tag> Tags { get; set; } = null!;
     }
 }
